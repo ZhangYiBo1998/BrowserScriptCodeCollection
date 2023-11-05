@@ -14,8 +14,6 @@
     'use strict';
 
     // Your code here...
-    let biliBliVideoCollectionReverse = new BiliBliVideoCollectionReverse();
-    biliBliVideoCollectionReverse.init();
 
     class BiliBliVideoCollectionReverse {
 
@@ -44,6 +42,10 @@
 
         // 正在播放的合集视频className标识
         PLAYING_VIDEO_CLASSNAME = "video-episode-card__info-playing";
+
+        constructor() {
+            this.init();
+        }
 
         async init() {
             // 存储this指针
@@ -80,7 +82,7 @@
             // 创建倒序按钮
             const reverseBtnDom = document.createElement("button");
             reverseBtnDom.innerHTML = "倒序";
-            reverseBtnDom.setAttribute("class", _this.classNameStrObj.subscriptionCollectionBtnDomClassName);
+            reverseBtnDom.setAttribute("class", _this.classNameStrObj.subscriptionCollectionBtnDomClassName.slice(1));
             reverseBtnDom.onclick = () => {
                 // 重置下一个播放的视频的数据
                 _this.nextVideoCollectionArrIndex = null;
@@ -205,11 +207,11 @@
             // 存储this指针
             const _this = this;
 
-             /**
-              * 如果下一个播放的视频下标超出当前视频合集子项内的视频数量
-              * 则播放下一个合集子项的第一个视频
-              * 否则播放当前视频合集子项的下一个视频
-              */
+            /**
+             * 如果下一个播放的视频下标超出当前视频合集子项内的视频数量
+             * 则播放下一个合集子项的第一个视频
+             * 否则播放当前视频合集子项的下一个视频
+             */
             if ((_this.videoIndex + 1) >= _this.videoCollectionArr[_this.videoCollectionArrIndex].length) {
 
                 /**
@@ -217,11 +219,11 @@
                  * 则停止播放
                  * 否则播放下一个合集子项的第一个视频
                  */
-                if(_this.videoCollectionArrIndex + 1 >= _this.videoCollectionArr.length){
+                if (_this.videoCollectionArrIndex + 1 >= _this.videoCollectionArr.length) {
                     _this.nextVideoIndex = 0;
                     _this.nextVideoCollectionArrIndex = 0;
                     _this.nextVideoDom = null;
-                }else{
+                } else {
                     _this.nextVideoIndex = 0;
                     _this.nextVideoCollectionArrIndex = _this.videoCollectionArrIndex + 1;
                 }
@@ -276,4 +278,7 @@
             })
         }
     }
+
+
+    let biliBliVideoCollectionReverse = new BiliBliVideoCollectionReverse();
 })();
