@@ -1,13 +1,14 @@
 // ==UserScript==
 // @name         bilibili视频合集倒序
 // @namespace    http://tampermonkey.net/
-// @version      0.4
+// @version      0.6
 // @description  bilibili视频合集增加倒序按钮，点击按钮后，合集支持倒序播放，方便从头开始追剧！
 // @author       zyb
 // @match        https://www.bilibili.com/video/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=bilibili.com
 // @grant        none
 // @license      MIT
+// @require https://greasyfork.org/scripts/479598-myjscodelibrary/code/MyJSCodeLibrary.js?version=1279054
 // ==/UserScript==
 
 (async function () {
@@ -15,7 +16,10 @@
 
     // Your code here...
 
-    class BiliBliVideoCollectionReverse {
+    /**
+     * bilibili视频合集倒序，支持倒序播放视频
+     */
+    class BiliBliVideoCollectionReverse extends MyJSCodeLibrary{
 
         // 存储视频合集数据
         videoCollectionArr = [[]];
@@ -44,6 +48,7 @@
         PLAYING_VIDEO_CLASSNAME = "video-episode-card__info-playing";
 
         constructor() {
+            super();
             this.init();
         }
 
@@ -130,19 +135,6 @@
                 // 计算接下来要播放的视频下标
                 _this.setNextVideoIndex();
             }, false);
-        }
-
-
-        /**
-         * 创建css样式
-         * @param {string} styleStr css样式
-         */
-        createStyleFuc(styleStr = "") {
-            // 创建style节点
-            const style = document.createElement("style");
-            style.setAttribute("type", "text/css");
-            style.appendChild(document.createTextNode(styleStr));
-            document.head.appendChild(style);
         }
 
         /**
@@ -239,46 +231,7 @@
             console.log("nextVideoCollectionArrIndex:", _this.nextVideoCollectionArrIndex, ",nextVideoIndex:", _this.nextVideoIndex)
             console.log("----------setNextVideoIndex-----------");
         }
-
-        /**
-         * 异步获取dom节点
-         * @param {string} selector dom节点的选择器文本
-         * @param {number} time 间隔时间
-         * @returns
-         */
-        getDomByIntervalAsyncFuc(selector, time = 100) {
-            let dom = document.querySelectorAll(selector)[0];
-            let timeId = null;
-            let times = 0;
-            return new Promise((res) => {
-                timeId = setInterval(() => {
-                    times++;
-                    if (dom || times > 10) {
-                        res(dom);
-                        clearInterval(timeId);
-                    } else {
-                        dom = document.querySelectorAll(selector)[0];
-                    }
-                }, time)
-            })
-        }
-
-        /**
-         * 异步获取dom节点
-         * @param {string} selector dom节点的选择器文本
-         * @param {number} time 间隔时间
-         * @returns
-         */
-        getDomByTimeoutAsyncFuc(selector = "", time = 2000) {
-            return new Promise((res) => {
-                setTimeout(() => {
-                    let dom = document.querySelectorAll(selector)[0];
-                    res(dom);
-                }, time)
-            })
-        }
     }
-
 
     let biliBliVideoCollectionReverse = new BiliBliVideoCollectionReverse();
 })();
