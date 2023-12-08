@@ -8,7 +8,7 @@
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=bilibili.com
 // @grant        none
 // @license      MIT
-// @require https://greasyfork.org/scripts/479598-myjscodelibrary/code/MyJSCodeLibrary.js?version=1279054
+// @require https://update.greasyfork.org/scripts/479598/1292154/MyJSCodeLibrary.js
 // ==/UserScript==
 
 (async function () {
