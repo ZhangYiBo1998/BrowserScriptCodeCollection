@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         我的常用js代码库
 // @namespace    http://tampermonkey.net/
-// @version      0.5
+// @version      0.6
 // @description  我常用的js代码库
 // @author       zyb
 // @match        http://*/*
@@ -99,5 +99,54 @@ class MyJSCodeLibrary {
                 res(dom);
             }, time)
         })
+    }
+
+    /**
+     * 针对返回值为html时的解析函数
+     * @param {Object} obj 请求头参数
+     * 
+     * {
+     *      "charset": "gbk",
+     *      "url": "https://www.88yydstxt426.com/s.php",
+     *      "headers": {
+     *          "content-type": "application/x-www-form-urlencoded",
+     *      },
+     *      "body": "objectType=2&type=articlename&s=%C3%C3%C3%C3",
+     *      "method": "POST",
+     * }
+     */
+    decodeHtmlAsyncFuc(obj = {}) {
+        const url = obj.url || '';
+        const header = obj.header || {
+            "content-type": "application/x-www-form-urlencoded",
+        };
+        const body = obj.body || '';
+        const method = obj.method || 'GET';
+        const charset = obj.charset || 'utf-8';
+
+        const decoder = new TextDecoder(charset);
+        return fetch(url, {
+            header,
+            body,
+            method,
+        }).then(response => {
+            const reader = response.body.getReader();
+
+            return reader.read().then(function process({ done, value }) {
+                if (done) {
+                    console.log('Stream finished');
+                    return new Promise((res) => {
+                        // 解码数据
+                        const text = decoder.decode(value);
+
+                        const dom = document.createElement('div');
+                        dom.innerHTML = text;
+                        res(dom);
+                    });
+                }
+
+                return reader.read().then(process);
+            });
+        });
     }
 }
