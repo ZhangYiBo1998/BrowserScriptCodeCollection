@@ -4,7 +4,7 @@
 // @version      0.6
 // @description  我常用的js代码库
 // @author       zyb
-// @match        http://*/*
+// @match        *://*/*
 // @icon         data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==
 // @grant        none
 // ==/UserScript==
@@ -117,16 +117,17 @@ class MyJSCodeLibrary {
      */
     decodeHtmlAsyncFuc(obj = {}) {
         const url = obj.url || '';
-        const header = obj.header || {
+        const headers = obj.headers || obj.header || {
             "content-type": "application/x-www-form-urlencoded",
         };
         const body = obj.body || '';
         const method = obj.method || 'GET';
         const charset = obj.charset || 'utf-8';
+        let domArr = [];
 
         const decoder = new TextDecoder(charset);
         return fetch(url, {
-            header,
+            headers,
             body,
             method,
         }).then(response => {
@@ -136,17 +137,20 @@ class MyJSCodeLibrary {
                 if (done) {
                     console.log('Stream finished');
                     return new Promise((res) => {
-                        // 解码数据
-                        const text = decoder.decode(value);
-
-                        const dom = document.createElement('div');
-                        dom.innerHTML = text;
-                        res(dom);
+                        res(domArr);
                     });
                 }
+
+                // 解码数据
+                const text = decoder.decode(value);
+                const dom = document.createElement('div');
+                dom.innerHTML = text;
+                domArr.push(dom);
 
                 return reader.read().then(process);
             });
         });
     }
 }
+
+window.myJSCodeLibrary = new MyJSCodeLibrary()
