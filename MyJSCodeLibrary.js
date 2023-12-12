@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         我的常用js代码库
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.61
 // @description  我常用的js代码库
 // @author       zyb
 // @match        *://*/*
@@ -120,7 +120,7 @@ class MyJSCodeLibrary {
         const headers = obj.headers || obj.header || {
             "content-type": "application/x-www-form-urlencoded",
         };
-        const body = obj.body || '';
+        const body = obj.body;
         const method = obj.method || 'GET';
         const charset = obj.charset || 'utf-8';
         let domArr = [];
