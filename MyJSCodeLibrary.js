@@ -151,6 +151,17 @@ class MyJSCodeLibrary {
             });
         });
     }
+
+    /**
+     * 将值复制到剪贴板
+     * @param {string} value 复制到剪贴板的值
+     */
+    copy(value = '') {
+        if (!value) {
+            return
+        }
+        navigator.clipboard.writeText(value);
+    }
 }
 
 window.myJSCodeLibrary = new MyJSCodeLibrary()
