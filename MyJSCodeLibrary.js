@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         我的常用js代码库
 // @namespace    http://tampermonkey.net/
-// @version      0.61
+// @version      0.62
 // @description  我常用的js代码库
 // @author       zyb
 // @match        *://*/*
@@ -161,6 +161,29 @@ class MyJSCodeLibrary {
             return
         }
         navigator.clipboard.writeText(value);
+    }
+
+    /**
+     * 监听函数
+     */
+    watch(dataObj, fuc) {
+        const obj = { ...dataObj };
+
+        //汇总对象中所有的属性形成一个数组
+        const keys = Object.keys(dataObj);
+        //遍历
+        keys.forEach((k) => {
+            Object.defineProperty(dataObj, k, {
+                get() {
+                    return obj[k];
+                },
+                set(val) {
+                    console.log(`${k}被修改了，值为`, val);
+                    fuc && fuc();
+                    obj[k] = val;
+                }
+            })
+        })
     }
 }
 
