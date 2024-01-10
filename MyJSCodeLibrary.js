@@ -164,7 +164,7 @@ class MyJSCodeLibrary {
     }
 
     /**
-     * 监听函数
+     * 监听函数，监听传入的对象的第一层字段值的变化
      */
     watch(dataObj, fuc) {
         const obj = { ...dataObj };
