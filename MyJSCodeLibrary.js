@@ -187,4 +187,4 @@ class MyJSCodeLibrary {
     }
 }
 
-window.myJSCodeLibrary = new MyJSCodeLibrary()
+window.MyJSCodeLibrary = MyJSCodeLibrary;
