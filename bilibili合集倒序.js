@@ -1,14 +1,14 @@
 // ==UserScript==
 // @name         bilibili视频合集倒序
 // @namespace    http://tampermonkey.net/
-// @version      0.6
+// @version      0.62
 // @description  bilibili视频合集增加倒序按钮，点击按钮后，合集支持倒序播放，方便从头开始追剧！
 // @author       zyb
 // @match        https://www.bilibili.com/video/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=bilibili.com
 // @grant        none
 // @license      MIT
-// @require https://update.greasyfork.org/scripts/479598/1293363/MyJSCodeLibrary.js
+// @require https://update.greasyfork.org/scripts/479598/1311136/MyJSCodeLibrary.js
 // ==/UserScript==
 
 (async function () {

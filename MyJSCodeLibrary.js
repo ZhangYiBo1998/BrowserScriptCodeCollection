@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         我的常用js代码库
 // @namespace    http://tampermonkey.net/
-// @version      0.62
+// @version      0.63
 // @description  我常用的js代码库
 // @author       zyb
 // @match        *://*/*
@@ -187,4 +187,6 @@ class MyJSCodeLibrary {
     }
 }
 
-window.MyJSCodeLibrary = MyJSCodeLibrary;
+if(!window.MyJSCodeLibrary){
+    window.MyJSCodeLibrary = MyJSCodeLibrary;
+}
