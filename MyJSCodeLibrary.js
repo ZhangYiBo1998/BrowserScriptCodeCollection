@@ -185,8 +185,35 @@ class MyJSCodeLibrary {
             })
         })
     }
+
+    /**
+     * 简单封装函数
+     * @param {string} url 
+     * @param {object} obj 
+     * @returns {Promise}
+     */
+    fetchJson(url, obj = {}) {
+        return new Promise((response, reject) => {
+            const { headers, body, method } = obj;
+            fetch(url, {
+                "headers": headers || {
+                    "accept": "application/json, text/plain, */*",
+                },
+                "body": body || null,
+                "method": method || "GET",
+            }).then((res) => {
+                return res.json()
+            }).then((data) => {
+                console.log(data);
+                response(data);
+            }).catch((error) => {
+                console.error("Error:", error);
+                reject(error);
+            });
+        })
+    }
 }
 
-if(!window.MyJSCodeLibrary){
+if (!window.MyJSCodeLibrary) {
     window.MyJSCodeLibrary = MyJSCodeLibrary;
 }

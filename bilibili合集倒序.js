@@ -19,7 +19,7 @@
     /**
      * bilibili视频合集倒序，支持倒序播放视频
      */
-    class BiliBliVideoCollectionReverse extends MyJSCodeLibrary{
+    class BiliBliVideoCollectionReverse extends MyJSCodeLibrary {
 
         // 存储视频合集数据
         videoCollectionArr = [[]];
@@ -58,7 +58,7 @@
 
             // 创建css样式
             const styleText = `
-                .base-video-sections-v1 .video-sections-head_second-line .second-line_right {
+                ${_this.classNameStrObj.subscriptionCollectionBtnDomClassName} {
                     width: 70px;
                     height: 24px;
                     border: 1px solid #00AEEC;
@@ -84,20 +84,10 @@
             }
             const collectDataDom = headDom.querySelectorAll(_this.classNameStrObj.collectDataDomClassName)[0];
             const subscriptionCollectionBtnDom = headDom.querySelectorAll(_this.classNameStrObj.subscriptionCollectionBtnDomClassName)[0];
+
             // 创建倒序按钮
-            const reverseBtnDom = document.createElement("button");
-            reverseBtnDom.innerHTML = "倒序";
-            reverseBtnDom.setAttribute("class", _this.classNameStrObj.subscriptionCollectionBtnDomClassName.slice(1));
-            reverseBtnDom.onclick = () => {
-                // 重置下一个播放的视频的数据
-                _this.nextVideoCollectionArrIndex = null;
-                _this.nextVideoIndex = null;
-                _this.nextVideoDom = null;
-                // 将视频合集倒序处理
-                _this.reverseVideos();
-                // 切换按钮
-                reverseBtnDom.innerHTML = ("倒序" === reverseBtnDom.innerHTML) ? "还原" : "倒序";
-            };
+            const reverseBtnDom = _this.createReverseBtnDom(headDom);
+
             // 按顺序插入倒序按钮
             headDom.innerHTML = "";
             headDom.appendChild(collectDataDom);
@@ -135,6 +125,32 @@
                 // 计算接下来要播放的视频下标
                 _this.setNextVideoIndex();
             }, false);
+        }
+
+        /**
+         * 创建倒序按钮
+         * @returns 
+         */
+        createReverseBtnDom() {
+            // 存储this指针
+            const _this = this;
+
+            // 创建倒序按钮
+            const reverseBtnDom = document.createElement("button");
+            reverseBtnDom.innerHTML = "倒序";
+            reverseBtnDom.setAttribute("class", _this.classNameStrObj.subscriptionCollectionBtnDomClassName.slice(1));
+            reverseBtnDom.onclick = () => {
+                // 重置下一个播放的视频的数据
+                _this.nextVideoCollectionArrIndex = null;
+                _this.nextVideoIndex = null;
+                _this.nextVideoDom = null;
+                // 将视频合集倒序处理
+                _this.reverseVideos();
+                // 切换按钮
+                reverseBtnDom.innerHTML = ("倒序" === reverseBtnDom.innerHTML) ? "还原" : "倒序";
+            };
+
+            return reverseBtnDom;
         }
 
         /**
