@@ -115,6 +115,7 @@ class MyJSCodeLibrary {
      *      "method": "POST",
      * }
      */
+    //#region 
     decodeHtmlAsyncFuc(obj = {}) {
         const url = obj.url || '';
         const headers = obj.headers || obj.header || {
@@ -151,17 +152,20 @@ class MyJSCodeLibrary {
             });
         });
     }
+    //#endregion
 
     /**
      * 将值复制到剪贴板
      * @param {string} value 复制到剪贴板的值
      */
+    //#region 
     copy(value = '') {
         if (!value) {
             return
         }
         navigator.clipboard.writeText(value);
     }
+    //#endregion
 
     /**
      * 监听函数，监听传入的对象的第一层字段值的变化
