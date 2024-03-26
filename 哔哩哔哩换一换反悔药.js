@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         哔哩哔哩换一换反悔药
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  try to take over the world!
 // @author       zyb
 // @match        https://www.bilibili.com/
@@ -16,6 +16,8 @@
     // Your code here...
     // let myJSCodeLibrary = new MyJSCodeLibrary();
 
+    // 广告选择器
+    const ADS_CLASSNAME = '.recommended-container_floor-aside .recommended-swipe'
     // 视频卡片选择器
     const CARD_CLASSNAME = '.recommended-container_floor-aside .feed-card';
     const CARD_IMAGE_CLASSNAME = '.bili-video-card__image--link';
@@ -108,6 +110,9 @@
     rollBtn.onclick = async (e) => {
         videoList = await getCardListAsync();
     }
+
+    let adsDom = document.querySelectorAll(ADS_CLASSNAME)[0];
+    adsDom.style.display = 'none';
 
     createHouHuiBtn(btnBox);
     videoList = await getCardListAsync();
